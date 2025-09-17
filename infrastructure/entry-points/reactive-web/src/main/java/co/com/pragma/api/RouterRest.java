@@ -1,8 +1,10 @@
 package co.com.pragma.api;
 
 import co.com.pragma.api.config.UserPath;
+import co.com.pragma.usecase.user.UserUseCase;
 import co.com.pragma.usecase.user.ValidationException;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.RouterOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -22,6 +24,7 @@ public class RouterRest {
     //private final UserPath userPath;
     private final Handler userHandler;
     @Bean
+    @RouterOperation(beanClass = UserUseCase.class, beanMethod = "saveUser")
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route()
                 .POST("/api/v1/usuarios", userHandler::listenSaveUser)
